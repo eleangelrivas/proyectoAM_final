@@ -21,11 +21,11 @@
                         <h4 class="font-18 m-b-5 text-center">Bienvenido</h4>
                         <p class="text-muted text-center">Para iniciar ingrese sus credenciales.</p>
 
-                        <form class="form-horizontal m-t-30" action="index.php">
+                        <form class="form-horizontal m-t-30" id="formulario_login">
 
                             <div class="form-group">
                                 <label for="correo">Correo o usuario</label>
-                                <input type="text" name="correo" class="form-control" id="correo" placeholder="Ingrese su correo">
+                                <input type="text" autocomplete="off" name="correo" class="form-control" id="correo" placeholder="Ingrese su correo">
                             </div>
 
                             <div class="form-group">
@@ -38,7 +38,7 @@
                                      
                                 </div>
                                 <div class="col-sm-6 text-right">
-                                    <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Iniciar sesión</button>
+                                    <button   class="btn btn-primary w-md waves-effect waves-light" type="submit">Iniciar sesión</button>
                                 </div>
                             </div>
 
@@ -61,6 +61,7 @@
 
         <!-- App js -->
         <script src="../../public/assets/js/app.js"></script>
+        <script src="funciones_ingreso.js" type="text/javascript" charset="utf-8" async defer></script>
 
     </body>
 </html>
