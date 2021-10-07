@@ -5,7 +5,7 @@
 		
 	
 	$instancia = new Conexion();
-	$conexion = $instancia->get_conexion();
+	$conexion = $instancia->obtene_conexion();
 
 	$sql ="SELECT *FROM tb_clientes";
 	$statement = $conexion->prepare($sql);
