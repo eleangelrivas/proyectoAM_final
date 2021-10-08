@@ -7,7 +7,7 @@
 	$instancia = new Conexion();
 	$conexion = $instancia->obtene_conexion();
 
-	$sql ="SELECT *FROM tb_clientes";
+	$sql ="SELECT *FROM tb_persona";
 	$statement = $conexion->prepare($sql);
 	$statement->execute();
 	$datos = $statement->fetchAll();
