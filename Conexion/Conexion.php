@@ -1,84 +1,86 @@
-<?php 
-    
-    include_once("login.php");
+<?php
+/**
+ * Clase que envuelve una instancia de la clase PDO
+ * para el manejo de la base de datos
+ */
+
+require_once 'login.php';
+date_default_timezone_set('America/El_Salvador');
+
+class Conexion
+{
+
     /**
-     * summary
+     * Única instancia de la clase
      */
-    class Conexion
+    private static $db = null;
+    
+    /**
+     * Instancia de PDO
+     */
+    private static $pdo;
+
+    final private function __construct()
     {
-        function obtene_conexion(){
-            try {
-                $pdo = new PDO(
-                    'mysql:dbname='.DATABASE.
-                    ';host='.HOST.
-                    ';port:3306',
-                    USERNAME,
-                    PASSWORD,
-                    array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
-                );
-                return $pdo;
-            } catch (Exception $e) {
-                return $e->getMessage().$e->getLine();  
-
-            }
+        try {
+            // Crear nueva conexión PDO
+            self::getDb();
+        } catch (PDOException $e) {
+            // Manejo de excepciones
         }
 
-        function cerrar_sesion($pdo){
-            $pdo=null;
-        }
+
     }
 
-    // $instancia = new Conexion();
-    // $conectar = $instancia->obtene_conexion();
+    /**
+     * Retorna en la única instancia de la clase
+     * @return Database|null
+     */
+    public static function getInstance()
+    {
+        if (self::$db === null) {
+            self::$db = new self();
+        }
+        return self::$db;
+    }
 
-    // $sql = "SELECT *FROM tb_clientes WHERE dui = ? and telefono=?";
-    // $statement = $conectar->prepare($sql);
-    // $statement->execute(array('04331249-1','7777-7878'));
-    // $datos = $statement->fetchAll();
-    // print $statement->rowCount();
-    // foreach($datos as $row) {
-    //  print "El nombre es: ".$row['nombre'].' '.$row['apellido'];
-    //  print '<br>';
-    // }
-    // print_r($datos);
-    /*INSERT*/
-    // try {
+    /**
+     * Crear una nueva conexión PDO basada
+     * en los datos de conexión
+     * @return PDO Objeto PDO
+     */
+    public function getDb()
+    {
+        //  $c = new PDO( "sqlsrv:Server=(local) ; Database = AdventureWorks ", "", "", array(PDO::SQLSRV_ATTR_DIRECT_QUERY => true));
+        //  
+        //  
+        if (self::$pdo == null) {
+            self::$pdo = new PDO(
+                'mysql:dbname=' . DATABASE .
+                ';host=' . HOSTNAME .
+                ';port:3306;', // Eliminar este elemento si se usa una instalación por defecto
+                USERNAME,
+                PASSWORD,
+                array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8')
+            );
+            // Habilitar excepciones
+            self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
 
-    //  $sql = "INSERT INTO tb_clientes(dui,nombre,apellido,fecha_nacimiento,telefono)values(?,?,?,?,?)";
+        return self::$pdo;
+    }
 
-    //  $statement = $conectar->prepare($sql);
-    //  $statement->execute(array('04331249-8','Rigoberto','Morales',date("Y-m-d"),'7740-7858'));
-    // print $statement->rowCount();
-    // } catch (Exception $e) {
-    //  print $e;
-    // }
+    /**
+     * Evita la clonación del objeto
+     */
+    final protected function __clone()
+    {
+    }
 
+    function _destructor()
+    {
+        self::$pdo = null;
+    }
+}
 
-    
-
-    /*update*/
-    // try {
-
-    //  $sql = "UPDATE tb_clientes SET nombre=? where dui = ? ";
-
-    //  $statement = $conectar->prepare($sql);
-    //  $statement->execute(array('Nuevo nombre','04331249-8'));
-    // print $statement->rowCount();
-    // } catch (Exception $e) {
-    //  print $e;
-    // }
-
-
-    /*Delete*/
-    // try {
-    //  $sql = "DELETE FROM tb_clientes where dui = ? ";
-    //  $statement = $conectar->prepare($sql);
-    //  $statement->execute(array("04331249-6"));
-    //  print $statement->rowCount();
-    // } catch (Exception $e) {
-    //  print $e;
-    // }
-
-
-
- ?>
+?>
