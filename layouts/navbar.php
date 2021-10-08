@@ -15,7 +15,7 @@
             <li class="menu-title">Main</li>
 
             <li>
-                <a href="../home/" class="waves-effect"><i class="mdi mdi-home"></i><span> Home </span></a>
+                <a href="../home/?modulo=HOME" class="waves-effect"><i class="mdi mdi-home"></i><span> Home </span></a>
             </li>
 
             
