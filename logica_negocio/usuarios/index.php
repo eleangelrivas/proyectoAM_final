@@ -1,9 +1,15 @@
 <?php include '../../layouts/header.php'; ?>
 <!-- C3 charts css -->
 <link href="../../public/plugins/c3/c3.min.css" rel="stylesheet" type="text/css" />
+<link href="../../public/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 
 <?php include '../../layouts/headerStyle.php'; ?>
-
+<style>
+    
+    div#registrar_usuario {
+        cursor: pointer;
+    }
+</style>
 <body class="fixed-left">
 
     <?php include '../../layouts/loader.php'; ?>
@@ -28,18 +34,40 @@
                 <div class="page-content-wrapper">
 
                     <div class="container-fluid">
- 
+                        
+                        <div class="row">
+                            <div class="col-md-6 col-xl-6" >
+                                <div class="mini-stat clearfix bg-white">
+                                    <span class="mini-stat-icon bg-purple mr-0 float-right"><i class="mdi mdi-account-multiple"></i></span>
+                                    <div class="mini-stat-info">
+                                        <span class="counter text-purple" id="cantidad_usuarios">25140</span>
+                                        Usuarios registrados
+                                    </div>
+                                    <div class="clearfix"></div>
+                                     
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-6" id="registrar_usuario">
+                                <div class="mini-stat clearfix bg-white">
+                                    <span class="mini-stat-icon bg-blue-grey mr-0 float-right"><i class="mdi mdi-account-multiple-plus"></i></span>
+                                    <div class="mini-stat-info">
+                                        <span class="counter text-blue-grey">Registrar</span>
+                                        Nuevo usuario
+                                    </div>
+                                    <div class="clearfix"></div>
+                                     
+                                </div>
+                            </div>
+                             
+                        </div>
+
                         <div class="row">
                             <div class="col-12">
                                 <div class="card m-b-20">
                                     <div class="card-body">
 
-                                        <h4 class="mt-0 header-title">Buttons example</h4>
-                                        <p class="text-muted m-b-30 font-14">The Buttons extension for DataTables
-                                            provides a common set of options, API methods and styling to display
-                                            buttons on a page that will interact with a DataTable. The core library
-                                            provides the based framework upon which plug-ins can built.
-                                        </p>
+                                         
+                                         
 
                                         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                             <thead>
@@ -108,6 +136,95 @@
 
             <?php include '../../layouts/footer.php'; ?>
 
+            <!-- aca las modales-->
+   
+            <div class="modal fade" id="md_registrar_usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registro nuevo usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      
+                     <form name="formulario_registro" id="formulario_registro">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" autocomplete="off" name="nombre" id="nombre" class="form-control" required placeholder="Ingrese su nombre"/>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" autocomplete="off" name="email" id="email" class="form-control" required placeholder="Ingrese su email"/>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>DUI</label>
+                                <input type="text" autocomplete="off" name="dui" id="dui" class="form-control" required placeholder="Ingrese su dui"/>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Teléfono</label>
+                                <input type="text" autocomplete="off" name="telefono" id="telefono" class="form-control" required placeholder="Ingrese su telefono"/>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Fecha nacimiento</label>
+                                <input type="date" autocomplete="off" name="fecha" id="fecha" class="form-control" required placeholder="Ingrese su fecha"/>
+                              </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label class="control-label">Tipo persona</label>
+                                <select id="tipo_persona" name="tipo_persona" class="form-control select2">
+                                     
+                                    <option value="1" >Administrador</option>
+                                    <option value="2" selected>Empleado</option>
+                                </select>               
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Usuario</label>
+                                <input maxlength="20" type="text" autocomplete="off" name="usuario" id="usuario" class="form-control" required placeholder="Ingrese su usuario"/>
+                              </div>
+                            </div>
+
+                             <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Contraseña</label>
+                                <input maxlength="50" minlength="5" type="password" autocomplete="off" name="contrasenia" id="contrasenia" class="form-control" required placeholder="Ingrese su contraseña"/>
+                              </div>
+                            </div>
+
+
+
+                          </div>
+                     
+                      
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit"  class="btn btn-primary">Guardar</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
         <!-- End Right content here -->
 
@@ -152,5 +269,7 @@
         
     <!-- App js -->
     <script src="../../public/assets/js/app.js"></script>
+    <script src="../../public/plugins/select2/js/select2.min.js"></script>
+    <script src="funciones_usuarios.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
