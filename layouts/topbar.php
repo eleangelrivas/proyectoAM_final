@@ -1,3 +1,22 @@
+<?php 
+    @session_start(); 
+    if (isset($_SESSION['logueado']) && $_SESSION['logueado']=="si") {
+        if ($_SESSION['bloquear_pantalla']=="no") {
+            // code...
+            
+        }else{
+             
+            header("Location: ../ingreso/bloqueo.php");
+             
+        }
+    }else{
+
+    }
+
+
+    require_once("../../Conexion/Configuraciones.php"); 
+?>
+
 <!-- Top Bar Start -->
 <div class="topbar">
 

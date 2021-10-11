@@ -1,3 +1,9 @@
+<?php 
+    @session_start(); 
+    $_SESSION['bloquear_pantalla']="si";
+
+ ?>
+
 <?php include '../../layouts/header.php'; ?>
 
 <?php include '../../layouts/headerStyle.php'; ?>
@@ -53,7 +59,7 @@
 
         <!-- App js -->
         <script src="../../public/assets/js/app.js"></script>
-        
+
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="funciones_ingreso.js" type="text/javascript" charset="utf-8" async defer></script>
 

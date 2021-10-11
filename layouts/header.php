@@ -1,16 +1,3 @@
-<?php 
-    @session_start();
-    if (isset($_SESSION['logueado']) && $_SESSION['logueado']===true) {
-        if ($_SESSION['bloquear_pantalla']==false) {
-            // code...
-        }else{
-            header("Location: ../ingreso/bloqueo.php");
-        }
-    }else{
-
-    }
-    require_once("../../Conexion/Configuraciones.php"); 
-?>
 <!doctype html>
 <html lang="es">
     <head>

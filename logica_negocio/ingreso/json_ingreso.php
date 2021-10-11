@@ -14,8 +14,8 @@
 			$verificacion = $modelo->desencrilas_contrasena($_POST['contrasena'],$resultado[2][0]['contrasena']);
 			if ($verificacion[0]===1) {
 				$array = array("Exito","Bienvenido nuevamente ".$resultado[2][0]['nombre'],$resultado);
-				$_SESSION['logueado']=true;
-				$_SESSION['bloquear_pantalla']=false;
+				$_SESSION['logueado']="si";
+				$_SESSION['bloquear_pantalla']="no";
 				print json_encode($array);
 
 			}else{
@@ -42,16 +42,18 @@
 		if ($resultado[0]==1 && $resultado[4]==1) {
 			$verificacion = $modelo->desencrilas_contrasena($_POST['contrasena'],$resultado[2][0]['contrasena']);
 			if ($verificacion[0]===1) {
-				$array = array("Exito","Bienvenido al sistema ".$resultado[2][0]['nombre'],$resultado);
-				$_SESSION['logueado']=true;
-				$_SESSION['bloquear_pantalla']=false;
+				
+				$_SESSION['logueado']="si";
+				$_SESSION['bloquear_pantalla']="no";
 				$_SESSION['nombre']=$resultado[2][0]['nombre'];
 				$_SESSION['tipo_persona']=$resultado[2][0]['tipo_persona'];
 				$_SESSION['usuario']=$resultado[2][0]['usuario'];
 				$_SESSION['correo']=$resultado[2][0]['email'];
+
+				$array = array("Exito","Bienvenido al sistema ".$resultado[2][0]['nombre'],$resultado,$_SESSION);
 				print json_encode($array);
 			}else{
-				$array = array("Error","La contraseña no coincide",$resultado);
+				$array = array("Error","La contraseña no coincide",$resultado,$_SESSION);
 				print json_encode($array);
 			}
 		}else{

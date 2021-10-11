@@ -21,7 +21,7 @@ $(function(){
 				});
 				var timer = setInterval(function(){
 					$(location).attr('href','../home/index.php?modulo=Home');
-					clearTimeout(timer);
+					clearTimeout(timer); 
 				},3500)
 	    	 }else{
 	    	 	Swal.fire({
