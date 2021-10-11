@@ -22,7 +22,7 @@
                         <p class="text-muted text-center">Para iniciar ingrese sus credenciales.</p>
 
                         <form class="form-horizontal m-t-30" id="formulario_login">
-
+                            <input type="hidden" name="iniciar_sesion" value="si_nueva">
                             <div class="form-group">
                                 <label for="correo">Correo o usuario</label>
                                 <input type="text" autocomplete="off" name="correo" class="form-control" id="correo" placeholder="Ingrese su correo">
@@ -61,6 +61,7 @@
 
         <!-- App js -->
         <script src="../../public/assets/js/app.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="funciones_ingreso.js" type="text/javascript" charset="utf-8" async defer></script>
 
     </body>

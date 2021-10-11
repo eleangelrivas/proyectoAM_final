@@ -31,9 +31,9 @@
                     <a class="dropdown-item" href="#"><i class="dripicons-user text-muted"></i> Perfil</a>
                      
                      
-                    <a class="dropdown-item" href="#"><i class="dripicons-lock text-muted"></i> Bloquear pantalla</a>
+                    <a class="dropdown-item" href="../ingreso/bloqueo.php"><i class="dripicons-lock text-muted"></i> Bloquear pantalla</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"><i class="dripicons-exit text-muted"></i> Salir</a>
+                    <a class="dropdown-item" href="../ingreso/destruir.php"><i class="dripicons-exit text-muted"></i> Salir</a>
                 </div>
             </li>
         </ul>

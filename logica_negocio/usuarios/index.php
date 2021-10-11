@@ -122,7 +122,7 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>DUI</label>
-                                <input type="text" autocomplete="off" name="dui" data-parsley-required-message="Campo  requerido" id="dui" maxlength="10" class="form-control" required placeholder="Ingrese su dui"/>
+                                <input data-mask="99999999-9"  type="text" autocomplete="off" name="dui" data-parsley-required-message="Campo  requerido" id="dui" maxlength="10" class="form-control" required placeholder="Ingrese su dui"/>
                               </div>
                             </div>
 
@@ -234,13 +234,13 @@
     <!-- App js -->
     <script src="../../public/assets/js/app.js"></script>
     <script src="../../public/plugins/select2/js/select2.min.js"></script>
+    <!-- Bootstrap inputmask js -->
+    <script src="../../public/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
 
-    <script>
-        var fecha  = '<?php print date("Y-m-d") ?>';
-    </script>
-
-    <script src="funciones_usuarios.js" type="text/javascript" charset="utf-8"></script>
+    
     <script type="text/javascript" src="../../public/plugins/parsleyjs/parsley.min.js"></script>
     <script src="../../public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+    <script src="funciones_usuarios.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

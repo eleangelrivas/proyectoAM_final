@@ -1,5 +1,12 @@
 $(function (){
 	$('#formulario_registro').parsley();
+
+	/*$('#telefono').inputmask({
+		mask: '9999-9999',
+
+	});*/
+
+
 	var fecha_hoy = new Date(); 
 	$('#fecha').datepicker({
 	    format: "dd/mm/yyyy",

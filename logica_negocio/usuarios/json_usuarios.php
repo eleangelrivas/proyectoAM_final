@@ -71,13 +71,25 @@
             "dui" => $_POST['dui'],
             "telefono" => $_POST['telefono'],
             "estado" => 1,
-            "fecha_nacimiento" => $_POST['fecha'],
+            "fecha_nacimiento" => $modelo->formatear_fecha($_POST['fecha']),
             "fecha_registro" => date("Y-m-d G:i:s"),
             "tipo_persona" => $_POST['tipo_persona']
         );
         $result = $modelo->insertar_generica($array_insertar);
         if($result[0]=='1'){
-        	print json_encode(array("Exito",$_POST,$result));
+
+        	/*Si la persona se creo procedo a registrar su usuario*/
+        	$id_usuario = $modelo->retonrar_id_insertar("tb_usuario"); 
+	        $array_usuario = array(
+	            "table" => "tb_usuario",
+	            "id"=>$id_usuario,
+	            "id_persona" => $id_insertar,
+	            "usuario" => $_POST['usuario'],
+	            "contrasena" => $modelo->encriptarlas_contrasenas($_POST['contrasenia'])
+	        );
+	        $result_usuario = $modelo->insertar_generica($array_usuario);
+
+        	print json_encode(array("Exito",$_POST,$result,$result_usuario));
 			exit();
 
         }else {
