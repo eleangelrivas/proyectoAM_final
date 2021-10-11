@@ -383,7 +383,8 @@
 			try {
 				$comando = Conexion::getInstance()->getDb()->prepare($sql);
 	            $comando->execute();
-	            return array("1","Eliminado");
+	            $afectados = $comando->rowCount();
+	            return array("1","Eliminado","","",$afectados);
 	        }catch(Exception $e){
 	        	return array("0","Error al eliminar",$e->getMessage(),$e->getLine(),$sql);
 	        	exit();

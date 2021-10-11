@@ -103,7 +103,8 @@
                   <div class="modal-body">
                       
                      <form name="formulario_registro" id="formulario_registro">
-                        <input type="hidden" name="ingreso_datos" value="si_registro">
+                        <input type="hidden" id="ingreso_datos" name="ingreso_datos" value="si_registro">
+                        <input type="hidden" id="llave_persona" name="llave_persona" value="si_registro">
                           <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
@@ -121,7 +122,7 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>DUI</label>
-                                <input type="text" autocomplete="off" name="dui" data-parsley-required-message="Campo  requerido" id="dui" maxlength="10" minlength="10" class="form-control" required placeholder="Ingrese su dui"/>
+                                <input type="text" autocomplete="off" name="dui" data-parsley-required-message="Campo  requerido" id="dui" maxlength="10" class="form-control" required placeholder="Ingrese su dui"/>
                               </div>
                             </div>
 

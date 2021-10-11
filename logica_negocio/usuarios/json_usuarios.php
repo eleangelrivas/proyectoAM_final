@@ -2,7 +2,64 @@
 	
 	require_once("../../Conexion/Modelo.php");
 	$modelo = new Modelo();
-	if (isset($_POST['ingreso_datos']) && $_POST['ingreso_datos']=="si_registro") {
+	if (isset($_POST['eliminar_persona']) && $_POST['eliminar_persona']=="si_eliminala") {
+		$array_eliminar = array(
+			"table"=>"tb_persona",
+			"id"=>$_POST['id']
+
+		);
+		$resultado = $modelo->eliminar_generica($array_eliminar);
+		if($resultado[0]=='1' && $resultado[4]>0){
+        	print json_encode(array("Exito",$_POST,$resultado));
+			exit();
+
+        }else {
+        	print json_encode(array("Error",$_POST,$resultado));
+			exit();
+        }
+		
+
+
+	}else if (isset($_POST['ingreso_datos']) && $_POST['ingreso_datos']=="si_actualizalo") {
+		$_POST['direccion'] = "Sin direccion";
+		$array_update = array(
+            "table" => "tb_persona",
+            "id" => $_POST['llave_persona'],
+            "dui"=>$_POST['dui'],
+            "nombre" => $_POST['nombre'],
+            "email" => $_POST['email'],
+            "direccion" => $_POST['direccion'], 
+            "telefono" => $_POST['telefono'],
+            "fecha_nacimiento" => $modelo->formatear_fecha($_POST['fecha']), 
+            "tipo_persona" => $_POST['tipo_persona']
+        );
+		$resultado = $modelo->actualizar_generica($array_update);
+
+		if($resultado[0]=='1' && $resultado[4]>0){
+        	print json_encode(array("Exito",$_POST,$resultado));
+			exit();
+
+        }else {
+        	print json_encode(array("Error",$_POST,$resultado));
+			exit();
+        }
+
+
+	}else if (isset($_POST['consultar_info']) && $_POST['consultar_info']=="si_condui_especifico") {
+
+		$resultado = $modelo->get_todos("tb_persona","WHERE id = '".$_POST['id']."'");
+		if($resultado[0]=='1'){
+        	print json_encode(array("Exito",$_POST,$resultado[2][0]));
+			exit();
+
+        }else {
+        	print json_encode(array("Error",$_POST,$resultado));
+			exit();
+        }
+
+
+
+	}else if (isset($_POST['ingreso_datos']) && $_POST['ingreso_datos']=="si_registro") {
 		$_POST['direccion']="sna vicente";
 		$id_insertar = $modelo->retonrar_id_insertar("tb_persona"); 
         $array_insertar = array(
@@ -52,9 +109,9 @@
                                             Seleccione
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Editar</a>
-                                            <a class="dropdown-item" href="#">Eliminar</a>
-                                            <a class="dropdown-item" href="#">Recuperar Contraseña</a>
+                                            <a data-id="'.$row['id'].'" class="dropdown-item btn_editar" href="javascript:void(0)">Editar</a>
+                                            <a data-id="'.$row['id'].'" class="dropdown-item btn_eliminar" href="javascript:void(0)">Eliminar</a>
+                                            <a data-id="'.$row['id'].'" class="dropdown-item btn_recuperar_pass" href="javascript:void(0)">Recuperar Contraseña</a>
                                         </div>
                                     </div>
 
