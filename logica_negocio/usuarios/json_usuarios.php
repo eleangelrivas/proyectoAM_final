@@ -44,8 +44,21 @@
 	                            <td>'.$row['dui'].'</td>
 	                            <td>'.$row['telefono'].'</td>
 	                            <td>'.$row['email'].'</td>
-	                            <td>'.$row['fecha_nacimiento'].'</td>
+	                            <td>'.$modelo->formatear_fecha($row['fecha_nacimiento']).'</td>
 	                            <td>'.$tipo.'</td>
+	                            <td>
+	                            	<div class="dropdown m-b-10">
+                                        <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Seleccione
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Editar</a>
+                                            <a class="dropdown-item" href="#">Eliminar</a>
+                                            <a class="dropdown-item" href="#">Recuperar Contraseña</a>
+                                        </div>
+                                    </div>
+
+	                            </td>
 	                        </tr>';	
 			}
 			$html.='<table id="tabla_usuarios" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -57,6 +70,7 @@
                             <th>Correo</th>
                             <th>Fecha nacimiento</th>
                             <th>Tipo persona</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>';

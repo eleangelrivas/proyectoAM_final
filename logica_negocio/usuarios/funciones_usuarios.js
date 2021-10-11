@@ -1,12 +1,39 @@
 $(function (){
+	$('#formulario_registro').parsley();
+	var fecha_hoy = new Date(); 
+	$('#fecha').datepicker({
+	    format: "dd/mm/yyyy",
+	    todayBtn: true,
+	    clearBtn: false,
+	    language: "es",
+	    calendarWeeks: true,
+	    autoclose: true,
+	    todayHighlight: true,
+	    endDate:fecha_hoy
+	});
 	cargar_datos();
-	$(".select2").select2();
+	// $(".select2").select2();
+
+	
+
+
+
 	$(document).on("click","#registrar_usuario",function(e){
 		e.preventDefault();
 		console.log("Capturando evento");
 		//$('#myModal').modal('show'); para abrir modal
 		//$('#myModal').modal('hide'); para cerrar modal
 		$('#md_registrar_usuario').modal('show');
+
+		$(".select2").select2({
+	    }).on("select2:opening", 
+	        function(){
+	            $(".modal").removeAttr("tabindex", "-1");
+	    }).on("select2:close", 
+	        function(){ 
+	            $(".modal").attr("tabindex", "-1");
+	    });
+    
 	});
 
 

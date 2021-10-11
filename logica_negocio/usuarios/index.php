@@ -2,12 +2,17 @@
 <!-- C3 charts css -->
 <link href="../../public/plugins/c3/c3.min.css" rel="stylesheet" type="text/css" />
 <link href="../../public/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
-
+ <link href="../../public/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <?php include '../../layouts/headerStyle.php'; ?>
 <style>
     
     div#registrar_usuario {
         cursor: pointer;
+    }
+    .error_modificado li.parsley-required {
+        position: absolute;
+        margin-top: 42px;
+        margin-left: -330px;
     }
 </style>
 <body class="fixed-left">
@@ -103,35 +108,45 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Nombre</label>
-                                <input type="text" autocomplete="off" name="nombre" id="nombre" class="form-control" required placeholder="Ingrese su nombre"/>
+                                <input type="text" autocomplete="off" name="nombre" data-parsley-required-message="El nombre es requerido" id="nombre" class="form-control" required placeholder="Ingrese su nombre"/>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" autocomplete="off" name="email" id="email" class="form-control" required placeholder="Ingrese su email"/>
+                                <input type="email" autocomplete="off" name="email" data-parsley-required-message="El email es requerido" id="email" class="form-control" required placeholder="Ingrese su email"/>
                               </div>
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>DUI</label>
-                                <input type="text" autocomplete="off" name="dui" id="dui" class="form-control" required placeholder="Ingrese su dui"/>
+                                <input type="text" autocomplete="off" name="dui" data-parsley-required-message="Campo  requerido" id="dui" maxlength="10" minlength="10" class="form-control" required placeholder="Ingrese su dui"/>
                               </div>
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Teléfono</label>
-                                <input type="text" autocomplete="off" name="telefono" id="telefono" class="form-control" required placeholder="Ingrese su telefono"/>
+                                <input type="text" autocomplete="off" name="telefono" data-parsley-required-message="Campo  requerido" id="telefono" class="form-control" required placeholder="Ingrese su telefono"/>
                               </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <!--div class="col-md-6">
                               <div class="form-group">
                                 <label>Fecha nacimiento</label>
-                                <input type="date" autocomplete="off" name="fecha" id="fecha" class="form-control" required placeholder="Ingrese su fecha"/>
+                                <input type="date" autocomplete="off" name="fecha1"  data-parsley-required-message="Campo  requerido" id="fecha1" class="form-control" required placeholder="Ingrese su fecha"/>
                               </div>
+                            </div-->
+                            <div class="col-md-6">
+                                <label>Fecha nacimiento bootstrap</label>
+                              <div class="input-group error_modificado">
+
+                                    <input type="text" class="form-control" placeholder="mm/dd/yyyy" data-parsley-required-message="Campo  requerido" required id="fecha" name="fecha">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                    </div>
+                                </div>
                             </div>
 
 
@@ -149,14 +164,14 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Usuario</label>
-                                <input maxlength="20" type="text" autocomplete="off" name="usuario" id="usuario" class="form-control" required placeholder="Ingrese su usuario"/>
+                                <input maxlength="20" type="text" autocomplete="off" name="usuario" id="usuario"  data-parsley-required-message="Campo  requerido" class="form-control" required placeholder="Ingrese su usuario"/>
                               </div>
                             </div>
 
                              <div class="col-md-6">
                               <div class="form-group">
                                 <label>Contraseña</label>
-                                <input maxlength="50" minlength="5" type="password" autocomplete="off" name="contrasenia" id="contrasenia" class="form-control" required placeholder="Ingrese su contraseña"/>
+                                <input maxlength="50" minlength="5" type="password" autocomplete="off" name="contrasenia" data-parsley-required-message="Campo  requerido" id="contrasenia" class="form-control" required placeholder="Ingrese su contraseña"/>
                               </div>
                             </div>
 
@@ -164,11 +179,10 @@
 
                           </div>
                      
-                      
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit"  class="btn btn-primary">Guardar</button>
+                    <button type="submit" id="boton_enviar"  class="btn btn-primary">Guardar</button>
                     </form>
                   </div>
                 </div>
@@ -219,6 +233,13 @@
     <!-- App js -->
     <script src="../../public/assets/js/app.js"></script>
     <script src="../../public/plugins/select2/js/select2.min.js"></script>
+
+    <script>
+        var fecha  = '<?php print date("Y-m-d") ?>';
+    </script>
+
     <script src="funciones_usuarios.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../../public/plugins/parsleyjs/parsley.min.js"></script>
+    <script src="../../public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 </body>
 </html>
