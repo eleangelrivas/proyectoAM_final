@@ -137,7 +137,8 @@
 				$comando=Conexion::getInstance()->getDb()->prepare($sql);
 				$comando->execute();
 				$result=$comando->fetchAll(PDO::FETCH_ASSOC);
-				return array(1,"exito",$result);
+				$cuantos = $comando->rowCount();
+				return array(1,"exito",$result,"",$cuantos);
 			}catch(Exception $e){
 				return array(-1,"error",$e->getMessage(),$sql);
 			}
@@ -579,6 +580,198 @@
         		return array("-1","error los datos no existen",$usuario_exist,$query);
         		exit();
         	}
+		}
+
+		public static function envio_correo($para,$titulo,$mensaje){
+
+			// Para enviar un correo HTML, debe establecerse la cabecera Content-type
+			$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+			$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+			// Cabeceras adicionales
+			$cabeceras .= 'To: Ele <info@gmail.com>' . "\r\n";
+			$cabeceras .= 'From: Recuperación de Contraseña <info@gmail.com>' . "\r\n";
+
+			// Enviarlo
+			if (mail($para, $titulo, $mensaje, $cabeceras)) {
+				return array(1,"Exito al enviar el mail");
+			}else{
+				return array(-1,"Error al enviar el mail");
+			}
+		}
+
+
+		public static function plantilla($contrasena){
+			return '<!DOCTYPE html>
+
+			<html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
+			<head>
+			<title></title>
+			<meta charset="utf-8"/>
+			<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+			<!--[if mso]><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:AllowPNG/></o:OfficeDocumentSettings></xml><![endif]-->
+			<style>
+					* {
+						box-sizing: border-box;
+					}
+
+					body {
+						margin: 0;
+						padding: 0;
+					}
+
+					th.column {
+						padding: 0
+					}
+
+					a[x-apple-data-detectors] {
+						color: inherit !important;
+						text-decoration: inherit !important;
+					}
+
+					#MessageViewBody a {
+						color: inherit;
+						text-decoration: none;
+					}
+
+					p {
+						line-height: inherit
+					}
+
+					@media (max-width:520px) {
+						.icons-inner {
+							text-align: center;
+						}
+
+						.icons-inner td {
+							margin: 0 auto;
+						}
+
+						.row-content {
+							width: 100% !important;
+						}
+
+						.stack .column {
+							width: 100%;
+							display: block;
+						}
+					}
+				</style>
+			</head>
+			<body style="background-color: #FFFFFF; margin: 0; padding: 0; -webkit-text-size-adjust: none; text-size-adjust: none;">
+			<table border="0" cellpadding="0" cellspacing="0" class="nl-container" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF;" width="100%">
+			<tbody>
+			<tr>
+			<td>
+			<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+			<tbody>
+			<tr>
+			<td>
+			<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="500">
+			<tbody>
+			<tr>
+			<th class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px;" width="100%">
+			<table border="0" cellpadding="10" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+			<tr>
+			<td>
+			<div style="font-family: sans-serif">
+			<div style="font-size: 14px; color: #555555; line-height: 1.2; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
+			<p style="margin: 0; font-size: 14px; text-align: center;"><strong>Recuperación de Contraseña</strong></p>
+			<p style="margin: 0; font-size: 14px; text-align: center;"><strong>Curso de Programación PHP 2021</strong></p>
+			</div>
+			</div>
+			</td>
+			</tr>
+			</table>
+			</th>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			</tr>
+			</tbody>
+			</table>
+			<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+			<tbody>
+			<tr>
+			<td>
+			<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="500">
+			<tbody>
+			<tr>
+			<th class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px;" width="100%">
+			<table border="0" cellpadding="10" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+			<tr>
+			<td>
+			<div style="font-family: sans-serif">
+			<div style="font-size: 14px; color: #555555; line-height: 1.2; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
+			<p style="margin: 0; font-size: 14px;">Para ingresar al sistema utilice la siguiente :</p>
+			</div>
+			</div>
+			</td>
+			</tr>
+			</table>
+			<table border="0" cellpadding="10" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+			<tr>
+			<td>
+			<div style="font-family: sans-serif">
+			<div style="font-size: 12px; color: #555555; line-height: 1.2; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
+			<p style="margin: 0; font-size: 12px;">'.$contrasena.'</p>
+			</div>
+			</div>
+			</td>
+			</tr>
+			</table>
+			</th>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			</tr>
+			</tbody>
+			</table>
+			<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-3" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+			<tbody>
+			<tr>
+			<td>
+			<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="500">
+			<tbody>
+			<tr>
+			<th class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px;" width="100%">
+			<table border="0" cellpadding="0" cellspacing="0" class="icons_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+			<tr>
+			<td style="color:#9d9d9d;font-family:inherit;font-size:15px;padding-bottom:5px;padding-top:5px;text-align:center;">
+			<table cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+			<tr>
+			<td style="text-align:center;">
+			<!--[if vml]><table align="left" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-block;padding-left:0px;padding-right:0px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"><![endif]-->
+			<!--[if !vml]><!-->
+			<table cellpadding="0" cellspacing="0" class="icons-inner" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; display: inline-block; margin-right: -4px; padding-left: 0px; padding-right: 0px;">
+			<!--<![endif]-->
+			<tr>
+			<td style="text-align:center;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:6px;"><a href="https://www.designedwithbee.com/"><img align="center" alt="Designed with BEE" class="icon" height="32" src="images/bee.png" style="display: block; height: auto; border: 0;" width="34"/></a></td>
+			<td style="font-family:Arial, Helvetica Neue, Helvetica, sans-serif;font-size:15px;color:#9d9d9d;vertical-align:middle;letter-spacing:undefined;text-align:center;"><a href="https://www.designedwithbee.com/" style="color:#9d9d9d;text-decoration:none;">Elenilson</a></td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+			</th>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			</tr>
+			</tbody>
+			</table><!-- End -->
+			</body>
+			</html>';
 		}
 
 	}

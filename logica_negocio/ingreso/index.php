@@ -45,7 +45,7 @@
 
                             <div class="form-group m-t-10 mb-0 row">
                                 <div class="col-12 m-t-20">
-                                    <a href="javascript:void(0)" class="text-muted"><i class="mdi mdi-lock"></i> Recuperar tu contraseña</a>
+                                    <a href="recuperar_password.php" class="text-muted"><i class="mdi mdi-lock"></i> Recuperar tu contraseña</a>
                                 </div>
                             </div>
                         </form>

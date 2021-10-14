@@ -2,7 +2,41 @@
 	
 	require_once("../../Conexion/Modelo.php");
 	$modelo = new Modelo();
-	if (isset($_POST['eliminar_persona']) && $_POST['eliminar_persona']=="si_eliminala") {
+	if (isset($_POST['enviar_contra']) && $_POST['enviar_contra']=="si_enviala") {
+        
+        $nueva_contra = $modelo->generarpass();
+        $array_update = array(
+            "table" => "tb_usuario",
+            "id_persona" => $_POST['id'],
+            "contrasena" => $modelo->encriptarlas_contrasenas($nueva_contra)
+        );
+        $resultado = $modelo->actualizar_generica($array_update);
+
+        if($resultado[0]=='1' && $resultado[4]>0){
+
+            $mensaje = $modelo->plantilla($nueva_contra);
+            $titulo="Recuperación de contraseña";
+            $para = $_POST['email'];
+            $resultado = $modelo->envio_correo($para,$titulo,$mensaje);
+            if ($resultado[0]==1) {
+                print json_encode(array("Exito",$_POST,$resultado));
+                exit();
+            }else{
+                print json_encode(array("Error",$_POST,$resultado));
+                exit();
+            }
+            
+
+        }else {
+            print json_encode(array("Error",$_POST,$resultado));
+            exit();
+        }
+
+
+        print json_encode($_POST);
+
+
+    }else if (isset($_POST['eliminar_persona']) && $_POST['eliminar_persona']=="si_eliminala") {
 		$array_eliminar = array(
 			"table"=>"tb_persona",
 			"id"=>$_POST['id']
@@ -123,7 +157,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a data-id="'.$row['id'].'" class="dropdown-item btn_editar" href="javascript:void(0)">Editar</a>
                                             <a data-id="'.$row['id'].'" class="dropdown-item btn_eliminar" href="javascript:void(0)">Eliminar</a>
-                                            <a data-id="'.$row['id'].'" class="dropdown-item btn_recuperar_pass" href="javascript:void(0)">Recuperar Contraseña</a>
+                                            <a data-id="'.$row['id'].'" data-email="'.$row['email'].'" class="dropdown-item btn_recuperar_pass" href="javascript:void(0)">Recuperar Contraseña</a>
                                         </div>
                                     </div>
 

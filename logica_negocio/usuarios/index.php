@@ -237,7 +237,7 @@
     
 
     
-    <script type="text/javascript" src="../../public/plugins/parsleyjs/parsley.min.js"></script>
+    
     <script src="../../public/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
     <script src="funciones_usuarios.js" type="text/javascript" charset="utf-8"></script>
