@@ -53,6 +53,15 @@ $(function(){
 					$(location).attr('href','../home/index.php?modulo=Home');
 					clearTimeout(timer);
 				},3500)
+	    	 }else if(json[0]=="Bloqueo"){
+	    	 	Swal.fire({
+				  icon: 'error',
+				  title: "Usuario bloqueado"
+				});
+				var timer = setInterval(function(){
+					$(location).attr('href','../home/index.php?modulo=Home');
+					clearTimeout(timer);
+				},3500)
 	    	 }else{
 	    	 	Swal.fire({
 				  icon: 'error',

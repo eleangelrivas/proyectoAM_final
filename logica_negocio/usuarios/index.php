@@ -129,7 +129,7 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Teléfono</label>
-                                <input type="text" autocomplete="off" name="telefono" data-parsley-required-message="Campo  requerido" id="telefono" class="form-control" required placeholder="Ingrese su telefono"/>
+                                <input type="text" autocomplete="off" name="telefono" data-parsley-required-message="Campo  requerido" data-mask="9999-9999" id="telefono" class="form-control" required placeholder="Ingrese su telefono"/>
                               </div>
                             </div>
 
@@ -182,7 +182,7 @@
                      
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button"  class="btn btn-secondary btn_cerrar_class">Cerrar</button>
                     <button type="submit" id="boton_enviar"  class="btn btn-primary">Guardar</button>
                     </form>
                   </div>
@@ -234,8 +234,7 @@
     <!-- App js -->
     <script src="../../public/assets/js/app.js"></script>
     <script src="../../public/plugins/select2/js/select2.min.js"></script>
-    <!-- Bootstrap inputmask js -->
-    <script src="../../public/plugins/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+    
 
     
     <script type="text/javascript" src="../../public/plugins/parsleyjs/parsley.min.js"></script>

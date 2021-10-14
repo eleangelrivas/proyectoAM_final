@@ -1,11 +1,9 @@
 $(function (){
 	$('#formulario_registro').parsley();
 
-	/*$('#telefono').inputmask({
-		mask: '9999-9999',
-
-	});*/
-
+	$.mask.definitions['~']='[2,6,7]';
+	$('#telefono').mask("~999-9999");
+	$('#dui').mask("99999999-9");
 
 	var fecha_hoy = new Date(); 
 	$('#fecha').datepicker({
@@ -21,6 +19,13 @@ $(function (){
 	cargar_datos();
 	// $(".select2").select2();
 
+	$(document).on("click",".btn_cerrar_class",function(e){
+		e.preventDefault();
+		$("#formulario_registro").trigger('reset');
+		$('#md_registrar_usuario').modal('hide');
+
+
+	});
 	$(document).on("click",".btn_eliminar",function(e){
 		e.preventDefault();
 		var id = $(this).attr("data-id");
@@ -38,6 +43,7 @@ $(function (){
 	$(document).on("click",".btn_editar",function(e){
 
 		e.preventDefault(); 
+		mostrar_mensaje("Consultando datos");
 		var id = $(this).attr("data-id");
 		console.log("El id es: ",id);
 		var datos = {"consultar_info":"si_condui_especifico","id":id}
@@ -72,7 +78,7 @@ $(function (){
 	    }).fail(function(){
 
 	    }).always(function(){
-
+	    	Swal.close();
 	    });
 
 
@@ -103,7 +109,7 @@ $(function (){
 		e.preventDefault();
 		var datos = $("#formulario_registro").serialize();
 		console.log("Imprimiendo datos: ",datos);
-
+		mostrar_mensaje("Almacenando información","Por favor no recargue la página");
 		$.ajax({
             dataType: "json",
             method: "POST",
@@ -111,7 +117,7 @@ $(function (){
             data : datos,
         }).done(function(json) {
         	console.log("EL GUARDAR",json);
-
+        	$('#md_registrar_usuario').modal('hide');
         	cargar_datos();
         }).fail(function(){
 
@@ -124,6 +130,7 @@ $(function (){
 });
 
 function cargar_datos(){
+	mostrar_mensaje("Consultando datos");
 	var datos = {"consultar_info":"si_consultala"}
 	$.ajax({
         dataType: "json",
@@ -139,6 +146,25 @@ function cargar_datos(){
     }).fail(function(){
 
     }).always(function(){
-
+    	Swal.close();
     });
+}
+
+function mostrar_mensaje(titulo,mensaje=""){
+	Swal.fire({
+	  title: titulo,
+	  html: mensaje,
+	  allowOutsideClick: false,
+	  timerProgressBar: true,
+	  didOpen: () => {
+	    Swal.showLoading()
+	     
+	  },
+	  willClose: () => {
+	     
+	  }
+	}).then((result) => {
+	  
+	   
+	})
 }
