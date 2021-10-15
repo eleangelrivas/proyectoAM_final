@@ -2,17 +2,20 @@
 	
 	require_once("../../Conexion/Modelo.php");
 	$modelo = new Modelo();
-	if (isset($_GET['filtro']) && $_GET['filtro']=="subir_imagen") {
+	if (isset($_GET['subir_imagen']) && $_GET['subir_imagen']=="subir_imagen_ajax") {
 
 		$file_path = "archivos_usuario/".basename($_FILES['file-0']['name']);
-		$mover = move_uploaded_file($_FILES['file-0']['tmp_name'], $file_path);
-		if ($mover) {
-			 print json_encode("Exito");
-			 exit();
-		}else{
-			print json_encode("Exito");
-			exit();
+		try {
+			$mover = move_uploaded_file($_FILES['file-0']['tmp_name'], $file_path);
+			 
+				 print json_encode("Exito",$mover);
+				 exit();
+			 
+		} catch (Exception $e) {
+			print json_encode("Error",$e);
+				exit();
 		}
+		
 
 
 		 

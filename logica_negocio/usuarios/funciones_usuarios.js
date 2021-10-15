@@ -187,30 +187,61 @@ $(function (){
 
 function subir_archivo(archivo,id_persona){
 
-	console.log("Datos recibidos",archivo,id_persona);
-	var file = archivo.files;
-	var data = new FormData(); 
-	jQuery.each(archivo[0].files,function(i,file){
-		data.append('file-'+i,file);
-	});
+	Swal.fire({
+      title: '¡Subiendo imagen!',
+      html: 'Por favor espere mientras se obtiene la informacion',
+      timerProgressBar: true,
+      allowEscapeKey:false,
+      allowOutsideClick:false,
+      onBeforeOpen: () => {
+        Swal.showLoading()
+      }
+  	});
 
+  console.log("aca archivos",archivo,id_persona);
+  // return null;
+    var file =archivo.files;
+    var formData = new FormData();
+    formData.append('formData', $("#crear_seccion_home"));
+    var data = new FormData();
+     //Append files infos
+     jQuery.each(archivo[0].files, function(i, file) {
+        data.append('file-'+i, file);
+     });
 
-	$.ajax({
-		url:'json_usuarios.php?id_persona='+id_persona+'&filtro=subir_imagen',
-		dataType:'json',
-		type:"POST",
-		data:data,
-		cache:false,
-		processData:false,
-		contextType:false,
-		context:this,
-		success:function(json){
-			console.log("El archivo subido?:",json);
-		}
+     console.log("data",data);
+     $.ajax({  
+        url: "json_usuarios.php?id="+id_persona+'&subir_imagen=subir_imagen_ajax',  
+        type: "POST", 
+        dataType: "json",  
+        data: data,  
+        cache: false,
+        processData: false,  
+        contentType: false, 
+        context: this,
 
-	})
+        success: function (json) {
+	          Swal.close();
+	            console.log("eljson_img",json);
+	            
 
+	        if(json[0]=="Exito"){  
+	             Swal.fire(
+		          '¡Excelente!',
+		          'La información ha sido almacenada correctamente!',
+		          'success'
+	        	);
+        	  
+            }else{
+                Swal.fire(
+		          '¡Error!',
+		          'No ha sido posible registrar la imagen',
+		          'error'
+		        );
+            }
 
+        }
+    });
 }
 
 
