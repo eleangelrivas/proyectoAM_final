@@ -18,7 +18,35 @@ $(function (){
 	});
 	cargar_datos();
 	// $(".select2").select2();
+	$(document).on("change","#imagen_persona",function(e){
+		validar_archivo($(this));
 
+	});
+	$(document).on("change","#depto",function(e){
+		e.preventDefault();
+		console.log("el depto es: ",$("#depto").val());
+
+		mostrar_mensaje("Espere","Consultando municipios");
+		e.preventDefault();
+		var datos = {"consultar_municipios":"si_pordeptos","depto":$("#depto").val()}
+		console.log("datos: ",datos);
+		$.ajax({
+	        dataType: "json",
+	        method: "POST",
+	        url:'json_usuarios.php',
+	        data : datos,
+	    }).done(function(json) {
+	    	if (json[0]=="Exito") {
+	    		$("#municipio").empty().html(json[1][0]);
+	    	}
+	    	console.log("El envio: ",json);
+	    }).always(function(){
+	    	Swal.close();
+	    });
+
+
+
+	});
 
 	$(document).on("click",".btn_recuperar_pass",function(e){
 		mostrar_cargando("Espere","Enviando contraseña");
@@ -138,7 +166,15 @@ $(function (){
         }).done(function(json) {
         	console.log("EL GUARDAR",json);
         	$('#md_registrar_usuario').modal('hide');
-        	cargar_datos();
+        	if (json[0]=="Exito") {
+        		if ($("#imagen_persona").val()!="") { 
+        			subir_archivo($("#imagen_persona"),json[1]);
+        		}
+        		cargar_datos();
+        	}else{
+        		cargar_datos();
+        	}
+        	
         }).fail(function(){
 
         }).always(function(){
@@ -148,6 +184,35 @@ $(function (){
 
 	});
 });
+
+function subir_archivo(archivo,id_persona){
+
+	console.log("Datos recibidos",archivo,id_persona);
+	var file = archivo.files;
+	var data = new FormData(); 
+	jQuery.each(archivo[0].files,function(i,file){
+		data.append('file-'+i,file);
+	});
+
+
+	$.ajax({
+		url:'json_usuarios.php?id_persona='+id_persona+'&filtro=subir_imagen',
+		dataType:'json',
+		type:"POST",
+		data:data,
+		cache:false,
+		processData:false,
+		contextType:false,
+		context:this,
+		success:function(json){
+			console.log("El archivo subido?:",json);
+		}
+
+	})
+
+
+}
+
 
 function cargar_datos(){
 	mostrar_mensaje("Consultando datos");
@@ -163,6 +228,7 @@ function cargar_datos(){
     	$("#cantidad_usuarios").empty().html(json[2]);
     	$('#tabla_usuarios').DataTable();
     	$('#md_registrar_usuario').modal('hide');
+    	$("#depto").empty().html(json[3][0]);
     }).fail(function(){
 
     }).always(function(){
@@ -187,4 +253,47 @@ function mostrar_mensaje(titulo,mensaje=""){
 	  
 	   
 	})
+}
+
+
+function validar_archivo(file){
+	console.log("validar_archivo",file);
+	 
+     var Lector;
+     var Archivos = file[0].files;
+     var archivo = file;
+     var archivo2 = file.val();
+     if (Archivos.length > 0) {
+
+
+        Lector = new FileReader();
+        Lector.onloadend = function(e) {
+            var origen, tipo, tamanio;
+            //Envia la imagen a la pantalla
+            origen = e.target; //objeto FileReader
+            //Prepara la información sobre la imagen
+            tipo = archivo2.substring(archivo2.lastIndexOf("."));
+            console.log("el tipo",tipo);
+            tamanio = e.total / 1024;
+            console.log("el tamaño",tamanio);
+
+            if (tipo !== ".jpeg" && tipo !== ".JPEG" && tipo !== ".jpg" && tipo !== ".JPG" && tipo !== ".png" && tipo !== ".PNG") {
+                //  
+                console.log("error_tipo");
+                $("#error_en_la_imagen").css('display','block');
+            }
+            else{
+                 $("#error_en_la_imagen").css('display','none');
+                console.log("en el else");
+            }
+
+       };
+        Lector.onerror = function(e) {
+        console.log(e)
+       }
+       Lector.readAsDataURL(Archivos[0]);
+   }
+
+
+
 }

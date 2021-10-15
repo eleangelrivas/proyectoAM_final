@@ -2,7 +2,40 @@
 	
 	require_once("../../Conexion/Modelo.php");
 	$modelo = new Modelo();
-	if (isset($_POST['enviar_contra']) && $_POST['enviar_contra']=="si_enviala") {
+	if (isset($_GET['filtro']) && $_GET['filtro']=="subir_imagen") {
+
+		$file_path = "archivos_usuario/".basename($_FILES['file-0']['name']);
+		$mover = move_uploaded_file($_FILES['file-0']['tmp_name'], $file_path);
+		if ($mover) {
+			 print json_encode("Exito");
+			 exit();
+		}else{
+			print json_encode("Exito");
+			exit();
+		}
+
+
+		 
+
+	}else if (isset($_POST['consultar_municipios']) && $_POST['consultar_municipios']=="si_pordeptos") {
+
+		$array_select = array(
+			"table"=>"tb_municipios",
+			"ID"=>"MunName"
+
+		);
+		$where = "WHERE DEPSV_ID='".$_POST['depto']."'";
+		$result_select = $modelo->crear_select($array_select,$where);
+		if ($result_select[0]!=0) {
+			print json_encode(array("Exito",$result_select));
+			exit();
+		}else{
+			print json_encode(array("Error",$result_select));
+			exit();
+		}
+
+
+	}else if (isset($_POST['enviar_contra']) && $_POST['enviar_contra']=="si_enviala") {
         
         $nueva_contra = $modelo->generarpass();
         $array_update = array(
@@ -81,6 +114,8 @@
 
 	}else if (isset($_POST['consultar_info']) && $_POST['consultar_info']=="si_condui_especifico") {
 
+
+		
 		$resultado = $modelo->get_todos("tb_persona","WHERE id = '".$_POST['id']."'");
 		if($resultado[0]=='1'){
         	print json_encode(array("Exito",$_POST,$resultado[2][0]));
@@ -123,7 +158,7 @@
 	        );
 	        $result_usuario = $modelo->insertar_generica($array_usuario);
 
-        	print json_encode(array("Exito",$_POST,$result,$result_usuario));
+        	print json_encode(array("Exito",$id_insertar,$_POST,$result,$result_usuario));
 			exit();
 
         }else {
@@ -133,6 +168,16 @@
     
 		 
 	}else{
+
+		$array_select = array(
+			"table"=>"tb_departamentos",
+			"ID"=>"DepName"
+
+		);
+		 
+		$result_select = $modelo->crear_select($array_select);
+
+
 		$htmltr = $html="";
 		$cuantos = 0;
 		$sql = "SELECT *,(SELECT count(*) as cuantos FROM tb_persona) as cuantos FROM tb_persona";
@@ -182,7 +227,7 @@
                     	</table>';
 
 
-        	print json_encode(array("Exito",$html,$cuantos,$_POST,$result));
+        	print json_encode(array("Exito",$html,$cuantos,$result_select,$_POST,$result));
 			exit();
 
         }else {

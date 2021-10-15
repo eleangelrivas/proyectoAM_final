@@ -177,6 +177,34 @@
                             </div>
 
 
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label class="control-label">Departamentos</label>
+                                <select id="depto" name="depto" class="form-control select2">
+                                     
+                                     
+                                </select>               
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label class="control-label">Municipio</label>
+                                <select id="municipio" name="municipio" class="form-control select2">
+                                     
+                                </select>               
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Seleccione imagen</label>
+                                    <input id="imagen_persona" name="imagen_persona"  data-buttonText="Seleccionar" type="file" class="filestyle" data-buttonname="btn-secondary">
+                                    <label style="display:none;font-size: 12px; list-style: none; color: #ea553d; margin-top: 5px;" id="error_en_la_imagen">La imagen no es valida</label>
+                                    
+                                </div>
+                            </div>
+
+
 
                           </div>
                      
