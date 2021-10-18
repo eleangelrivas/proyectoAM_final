@@ -194,9 +194,9 @@
 				$as++;
 				if ($key === 'table') {//obtengo tabla
 	 				$tabla = $array[$key];
-	 			}else if ($as===2) {//obtengo id
+	 			}else if ($as===2) {//obtengo tabla
 	 				$campo = $array[$key];
-	 			}else if ($as===3) {//obtengo value
+	 			}else if ($as===3) {//obtengo tabla
 	 				$whereid = $key;
 	 				$valor_whereid = $array[$key];
 	 			}
@@ -208,15 +208,8 @@
 	       		$comando->execute();
 	       		
 	       		$resultado = $comando->fetchAll(PDO::FETCH_COLUMN, 0);
-
-	       		if ($comando->rowCount()>0) {
-	       			$cuantos = $comando->rowCount();
-	       			return array(1,$resultado[0],$sql,"",$cuantos,$cuantos);
-	       		}else{
-	       			$cuantos = $comando->rowCount();
-	       			return array(0,array(),$sql,"",$cuantos,$cuantos);
-	       		}
-	       		
+	       		$cuantos = $comando->rowCount();
+	       		return array($resultado[0],$sql,"","",$cuantos);
 				//echo json_encode(array("exito" => $exito));
 			} catch (Exception $e) {
 				return array("0","error",$e->getMessage(),$e->getLine(),$sql);

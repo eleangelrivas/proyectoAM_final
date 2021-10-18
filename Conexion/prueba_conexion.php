@@ -1,15 +1,18 @@
 <?php 
 	
-	include("Modelo.php");
+	include("Conexion.php");
 	try {
 		
 	
-	$instancia = new Modelo(); 
+	$instancia = new Conexion();
+	$conexion = $instancia->obtene_conexion();
 
-	$sql ="SELECT id FROM tb_persona WHERE email = 'ele@gmail.com'";
-	$resultado = $instancia->get_query($sql);
+	$sql ="SELECT *FROM tb_persona";
+	$statement = $conexion->prepare($sql);
+	$statement->execute();
+	$datos = $statement->fetchAll();
 
-	print_r($resultado);
+	print_r($datos);
 
 	} catch (Exception $e) {
 		print_r($e);
