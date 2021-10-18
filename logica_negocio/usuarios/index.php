@@ -92,6 +92,7 @@
             <!-- aca las modales-->
    
             <div class="modal fade" id="md_registrar_usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -115,21 +116,21 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" autocomplete="off" name="email" data-parsley-required-message="El email es requerido" id="email" class="form-control" required placeholder="Ingrese su email"/>
+                                <input type="email" autocomplete="off" name="email" data-parsley-required-message="El email es requerido" data-quien_es="email" id="email" class="form-control validar_campos_unicos" required placeholder="Ingrese su email"/>
                               </div>
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>DUI</label>
-                                <input data-mask="99999999-9"  type="text" autocomplete="off" name="dui" data-parsley-required-message="Campo  requerido" id="dui" maxlength="10" class="form-control" required placeholder="Ingrese su dui"/>
+                                <input data-mask="99999999-9"  type="text" autocomplete="off" data-quien_es="dui" name="dui" data-parsley-required-message="Campo  requerido" id="dui" maxlength="10" class=" validar_campos_unicos form-control" required placeholder="Ingrese su dui"/>
                               </div>
                             </div>
 
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Teléfono</label>
-                                <input type="text" autocomplete="off" name="telefono" data-parsley-required-message="Campo  requerido" data-mask="9999-9999" id="telefono" class="form-control" required placeholder="Ingrese su telefono"/>
+                                <input type="text" autocomplete="off" name="telefono" data-quien_es="telefono" data-parsley-required-message="Campo  requerido" data-mask="9999-9999" id="telefono" class="form-control validar_campos_unicos" required placeholder="Ingrese su telefono"/>
                               </div>
                             </div>
 
@@ -165,7 +166,7 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Usuario</label>
-                                <input maxlength="20" type="text" autocomplete="off" name="usuario" id="usuario"  data-parsley-required-message="Campo  requerido" class="form-control" required placeholder="Ingrese su usuario"/>
+                                <input maxlength="20" type="text" autocomplete="off" name="usuario" id="usuario" data-quien_es="usuario" data-parsley-required-message="Campo  requerido" class="validar_campos_unicos form-control" required placeholder="Ingrese su usuario"/>
                               </div>
                             </div>
 
@@ -180,9 +181,8 @@
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label class="control-label">Departamentos</label>
-                                <select id="depto" name="depto" class="form-control select2">
-                                     
-                                     
+                                <select id="depto" name="depto" class="form-control select2">  
+
                                 </select>               
                               </div>
                             </div>

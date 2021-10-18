@@ -18,6 +18,34 @@ $(function (){
 	});
 	cargar_datos();
 	// $(".select2").select2();
+	$(document).on("blur",".validar_campos_unicos",function(e){
+		e.preventDefault();
+		if ($(this).val()=="") {
+			return;
+		}
+		console.log("validar_campo",$(this).data('quien_es'));
+		mostrar_mensaje("Espere","Validando "+$(this).data('quien_es'));
+		var datos = {"validar_campos":"si_por_campo","campo":$(this).val(),"tipo":$(this).data('quien_es')};
+
+		console.log("datos: ",datos);
+		$.ajax({
+	        dataType: "json",
+	        method: "POST",
+	        url:'json_usuarios.php',
+	        data : datos,
+	    }).done(function(json) {
+	    	console.log("retorno de validacion",json);
+	    	if (json[0]=="Exito") {
+	    		 
+	    	}
+	    	console.log("El envio: ",json);
+	    }).always(function(){
+	    	Swal.close();
+	    });
+
+
+
+	});
 	$(document).on("change","#imagen_persona",function(e){
 		validar_archivo($(this));
 
@@ -189,7 +217,7 @@ function subir_archivo(archivo,id_persona){
 
 	Swal.fire({
       title: '¡Subiendo imagen!',
-      html: 'Por favor espere mientras se obtiene la informacion',
+      html: 'Por favor espere mientras se sube el archivo',
       timerProgressBar: true,
       allowEscapeKey:false,
       allowOutsideClick:false,
@@ -259,6 +287,7 @@ function cargar_datos(){
     	$("#cantidad_usuarios").empty().html(json[2]);
     	$('#tabla_usuarios').DataTable();
     	$('#md_registrar_usuario').modal('hide');
+
     	$("#depto").empty().html(json[3][0]);
     }).fail(function(){
 
@@ -303,6 +332,7 @@ function validar_archivo(file){
             //Envia la imagen a la pantalla
             origen = e.target; //objeto FileReader
             //Prepara la información sobre la imagen
+
             tipo = archivo2.substring(archivo2.lastIndexOf("."));
             console.log("el tipo",tipo);
             tamanio = e.total / 1024;

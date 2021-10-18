@@ -2,7 +2,40 @@
 	
 	require_once("../../Conexion/Modelo.php");
 	$modelo = new Modelo();
-	if (isset($_GET['subir_imagen']) && $_GET['subir_imagen']=="subir_imagen_ajax") {
+	if (isset($_POST['validar_campos']) && $_POST['validar_campos']=="si_por_campo") {
+
+ 
+		$array_seleccionar = array();
+		$array_seleccionar['table']="tb_persona";
+		$array_seleccionar['campo']="id";
+
+		if ($_POST['tipo']=="email") {
+			$array_seleccionar['email']=$_POST['campo'];
+		}else if ($_POST['tipo']=="usuario") {
+			$array_seleccionar['table']="tb_usuario";
+			$array_seleccionar['usuario']=$_POST['campo'];
+		
+		}else if ($_POST['tipo']=="dui") { 
+			$array_seleccionar['dui']=$_POST['campo'];
+		}else{
+			$array_seleccionar['telefono']=$_POST['campo'];
+		
+		}
+
+		
+
+		$resultado = $modelo->seleccionar_cualquiera($array_seleccionar);
+		if ($resultado[0]==0 && $resultado[4]==0) {
+			print json_encode(array("Exito",$resultado,$array_seleccionar));
+			exit();
+		}else{
+			print json_encode(array("Error",$resultado,$array_seleccionar));
+			exit();
+		}
+
+
+
+	}else if (isset($_GET['subir_imagen']) && $_GET['subir_imagen']=="subir_imagen_ajax") {
 
 		$file_path = "archivos_usuario/".basename($_FILES['file-0']['name']);
 		try {
